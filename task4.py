@@ -48,9 +48,11 @@ class Mentor:
 
 
 class Lecturer(Mentor):
+    lecturers = []
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
+        self.lecturers.append(self)
 
     def average_grade_lec(self):
         grade_list = []
@@ -99,6 +101,17 @@ def average_grade_students_course(students, course):
     sum_grades = sum(all_grades_course)
     average_grade_student = round(sum_grades / len(all_grades_course), 1)
     return average_grade_student
+
+def average_grade_lecturer_course (lecturers,course):
+    all_grades_lecturer_course = []
+    for lecturer in lecturers:
+        if len(lecturer.grades) > 0:
+            for key, vul in lecturer.grades.items():
+                if key == course:
+                    all_grades_lecturer_course.extend(vul)
+    sum_grades = sum(all_grades_lecturer_course)
+    average_grade_lecturer = round(sum_grades / len(all_grades_lecturer_course), 1)
+    return average_grade_lecturer
 
 
 student1 = Student('Гриша', 'Минин', 'м')
@@ -150,3 +163,6 @@ print(lecturer1 > lecturer2)
 print(average_grade_students_course(Student.students, 'Python'))
 print(average_grade_students_course(Student.students, 'Python'))
 print(average_grade_students_course(Student.students, 'Git'))
+
+
+print(average_grade_lecturer_course(Lecturer.lecturers,'Python'))
